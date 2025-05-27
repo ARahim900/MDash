@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity System Dashboard - Muscat Bay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f7;
+        }
+        .header-bg {
+            background-color: #4E4456;
+        }
+        .primary-text {
+            color: #4E4456;
+        }
+        .logo-mb {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7A94 0%, #A596AD 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="header-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="logo-mb">MB</div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold">Electricity System Dashboard</h1>
+                    <p class="text-sm text-gray-200">Power generation and distribution monitoring</p>
+                </div>
+            </div>
+            <a href="index.html" class="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-lg transition-colors">
+                ← Back to Main Dashboard
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 py-8">
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-amber-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Generation</p>
+                        <p class="text-2xl font-bold text-amber-600">4.2 MW</p>
+                        <p class="text-xs text-green-600">↑ 8% from yesterday</p>
+                    </div>
+                    <div class="text-amber-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M11 3a1 1 0 100 2h1V3h-1zM4 8a1 1 0 011-1h1v2H5a1 1 0 01-1-1zM15 8a1 1 0 00-1-1h-1v2h1a1 1 0 001-1zM8 3a1 1 0 100 2h1V3H8zM7 11h1v2H7v-2zM12 11h1v2h-1v-2zM5 11a1 1 0 011-1h1v2H6a1 1 0 01-1-1zM13 11a1 1 0 011-1h1v2h-1a1 1 0 01-1-1zM7.05 14.93A.997.997 0 008 16h4a.997.997 0 00.95-1.07l-.25-1.93H7.3l-.25 1.93zM10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Load Demand</p>
+                        <p class="text-2xl font-bold text-blue-600">3.8 MW</p>
+                        <p class="text-xs text-blue-600">90.5% utilization</p>
+                    </div>
+                    <div class="text-blue-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Grid Efficiency</p>
+                        <p class="text-2xl font-bold text-green-600">94.2%</p>
+                        <p class="text-xs text-green-600">Excellent performance</p>
+                    </div>
+                    <div class="text-green-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-red-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Faults</p>
+                        <p class="text-2xl font-bold text-red-600">2</p>
+                        <p class="text-xs text-red-600">Minor issues detected</p>
+                    </div>
+                    <div class="text-red-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generation Sources & Load Distribution -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Generation Sources</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full mr-3"></div>
+                            <span class="font-medium">Solar Array</span>
+                        </div>
+                        <span class="text-amber-600 font-bold">1.8 MW</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-blue-400 rounded-full mr-3"></div>
+                            <span class="font-medium">Wind Turbines</span>
+                        </div>
+                        <span class="text-blue-600 font-bold">1.2 MW</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-gray-400 rounded-full mr-3"></div>
+                            <span class="font-medium">Diesel Backup</span>
+                        </div>
+                        <span class="text-gray-600 font-bold">1.2 MW</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span class="font-medium text-green-700">Total Renewable</span>
+                        <span class="text-green-600 font-bold">71.4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Load Distribution</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Residential Areas</span>
+                        <span class="text-blue-600 font-bold">1.5 MW</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Commercial District</span>
+                        <span class="text-blue-600 font-bold">1.8 MW</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Industrial Zone</span>
+                        <span class="text-blue-600 font-bold">0.4 MW</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Infrastructure</span>
+                        <span class="text-blue-600 font-bold">0.1 MW</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Components Status -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold primary-text mb-4">System Components Status</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Main Transformer</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Operational</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Load: 85% | Temp: 65°C</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Distribution Panel A</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Normal</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Voltage: 415V | Current: 320A</p>
+                </div>
+                
+                <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">UPS System</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">Maintenance</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Battery: 92% | Runtime: 45min</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Circuit Breakers</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">All Clear</span>
+                    </div>
+                    <p class="text-sm text-gray-600">48/48 operational</p>
+                </div>
+                
+                <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Feeder Line 3</span>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">Fault</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Ground fault detected</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Smart Meters</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Online</span>
+                    </div>
+                    <p class="text-sm text-gray-600">287/290 reporting</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-xl font-bold primary-text mb-4">Recent Activities</h3>
+            <div class="space-y-3">
+                <div class="flex items-center p-3 bg-red-50 rounded-lg">
+                    <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Ground fault detected on Feeder Line 3 - Maintenance team dispatched</span>
+                    <span class="ml-auto text-xs text-gray-500">5 minutes ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Solar panel output increased due to clear weather conditions</span>
+                    <span class="ml-auto text-xs text-gray-500">12 minutes ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                    <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Scheduled UPS maintenance started - System running on backup</span>
+                    <span class="ml-auto text-xs text-gray-500">45 minutes ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Load balancing optimization completed - Efficiency improved by 2%</span>
+                    <span class="ml-auto text-xs text-gray-500">2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="header-bg text-white text-center py-4 mt-8">
+        <p class="text-sm">&copy; 2025 Muscat Bay Integrated Systems. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
