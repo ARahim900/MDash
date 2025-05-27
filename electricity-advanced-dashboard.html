@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity System Dashboard - Muscat Bay OMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f1f5f9;
+        }
+        .primary-color { color: #4E4456; }
+        .primary-bg { background-color: #4E4456; }
+        .primary-light { background-color: #7E708A; }
+        .primary-dark { background-color: #3B3241; }
+        .sidebar { background-color: #3B3241; }
+        
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .nav-tab {
+            transition: all 0.2s ease;
+        }
+        .nav-tab:hover {
+            transform: scale(1.05);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4E4456;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen bg-slate-100">
+
+    <!-- Sidebar -->
+    <div class="w-64 sidebar text-slate-100 p-5 space-y-8 min-h-screen shadow-2xl">
+        <div class="text-3xl font-bold flex items-center space-x-3 text-white">
+            <i data-lucide="power" class="animate-pulse" style="color: #7E708A;"></i>
+            <span>Muscat Bay OMS</span>
+        </div>
+        
+        <nav class="space-y-2">
+            <button onclick="navigateToSection('electricity')" class="w-full flex items-center space-x-3 p-3 rounded-lg primary-bg text-white">
+                <i data-lucide="zap"></i>
+                <span class="font-medium">Electricity System</span>
+            </button>
+            <button onclick="navigateToSection('water')" class="w-full flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-slate-600">
+                <i data-lucide="droplets"></i>
+                <span class="font-medium">Water Analysis</span>
+            </button>
+            <button onclick="navigateToSection('stp')" class="w-full flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-slate-600">
+                <i data-lucide="combine"></i>
+                <span class="font-medium">STP Plant</span>
+            </button>
+            <button onclick="navigateToSection('contractor')" class="w-full flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-slate-600">
+                <i data-lucide="user-check"></i>
+                <span class="font-medium">Contractor Tracker</span>
+            </button>
+        </nav>
+        
+        <div class="mt-auto p-4 bg-slate-700 bg-opacity-30 rounded-lg text-center border border-slate-600">
+            <p class="text-sm text-slate-300">Operations Management Suite</p>
+            <button class="mt-3 w-full primary-bg text-white py-2.5 px-4 rounded-lg text-sm font-semibold shadow-lg hover:bg-opacity-90 transition-all">
+                Global Settings
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <div class="bg-white shadow-md p-4 flex flex-col md:flex-row justify-between items-center sticky top-0 z-20">
+            <div class="mb-3 md:mb-0">
+                <h1 class="text-2xl font-bold text-slate-800">Electricity System Dashboard</h1>
+                <p class="text-sm text-slate-500">Real-time power monitoring and consumption analysis</p>
+            </div>
+            <div class="flex items-center space-x-2 sm:space-x-3 md:space-x-5">
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
+                    <input type="text" placeholder="Search..." class="pl-11 pr-4 py-2.5 w-full sm:w-48 md:w-72 border border-slate-300 rounded-lg focus:ring-2 outline-none text-sm transition-all">
+                </div>
+                <button class="p-2.5 rounded-lg hover:bg-slate-100 transition-colors group">
+                    <i data-lucide="bell" class="text-slate-600 group-hover:text-slate-800 w-5 h-5"></i>
+                    <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                </button>
+                <div class="flex items-center space-x-3 cursor-pointer group">
+                    <div class="w-10 h-10 primary-bg rounded-full flex items-center justify-center text-white font-bold">MB</div>
+                    <div class="hidden md:block">
+                        <span class="text-sm text-slate-700 font-semibold block">Muscat Bay Admin</span>
+                        <span class="text-xs text-slate-500">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub Navigation -->
+        <div class="p-6 pb-0">
+            <div class="mb-6 flex justify-center">
+                <div class="bg-white shadow-md rounded-full p-1.5 inline-flex space-x-1">
+                    <button onclick="showTab('dashboard')" id="tab-dashboard" class="nav-tab px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 primary-bg text-white">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        <span>Dashboard</span>
+                    </button>
+                    <button onclick="showTab('performance')" id="tab-performance" class="nav-tab px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="trending-up" class="w-4 h-4"></i>
+                        <span>Performance</span>
+                    </button>
+                    <button onclick="showTab('analytics')" id="tab-analytics" class="nav-tab px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                        <span>Analytics</span>
+                    </button>
+                    <button onclick="showTab('details')" id="tab-details" class="nav-tab px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="list" class="w-4 h-4"></i>
+                        <span>Unit Details</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 pt-0 space-y-6">
+            <!-- Dashboard Tab Content -->
+            <div id="dashboard-content" class="tab-content">
+                <!-- AI Analysis Button -->
+                <div class="mb-6">
+                    <button onclick="runAIAnalysis()" class="flex items-center justify-center space-x-2 primary-bg text-white py-2.5 px-5 rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all w-full sm:w-auto">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>✨ Analyze Consumption with AI</span>
+                    </button>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="bg-white shadow p-4 rounded-lg mb-6 sticky top-[110px] z-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Filter by Month</label>
+                            <select id="monthFilter" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:outline-none bg-white">
+                                <option value="all">All Months</option>
+                                <option value="november-24">November 2024</option>
+                                <option value="december-24">December 2024</option>
+                                <option value="january-25">January 2025</option>
+                                <option value="february-25">February 2025</option>
+                                <option value="march-25">March 2025</option>
+                                <option value="april-25">April 2025</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Filter by Category</label>
+                            <select id="categoryFilter" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:outline-none bg-white">
+                                <option value="all">All Categories</option>
+                                <option value="infrastructure">Infrastructure</option>
+                                <option value="residential">Residential</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="pumping-station">Pumping Station</option>
+                                <option value="street-lighting">Street Lighting</option>
+                            </select>
+                        </div>
+                        <button onclick="resetFilters()" class="primary-dark text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-2 h-[46px]">
+                            <i data-lucide="filter" class="w-4 h-4"></i>
+                            <span>Reset Filters</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="metric-card bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-slate-500 font-semibold text-md">Total Consumption</h3>
+                            <div class="p-3 rounded-full text-white shadow-md primary-bg">
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-800 mb-1.5" id="totalConsumption">247,850 <span class="text-base font-medium text-slate-500">kWh</span></p>
+                        <p class="text-sm font-medium text-slate-500" id="consumptionPeriod">Overall</p>
+                    </div>
+
+                    <div class="metric-card bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-slate-500 font-semibold text-md">Total Est. Cost</h3>
+                            <div class="p-3 rounded-full text-white shadow-md bg-green-500">
+                                <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-800 mb-1.5" id="totalCost">6,196.25 <span class="text-base font-medium text-slate-500">OMR</span></p>
+                        <p class="text-sm font-medium text-slate-500">Based on selection</p>
+                    </div>
+
+                    <div class="metric-card bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-slate-500 font-semibold text-md">Avg. Consumption/Unit</h3>
+                            <div class="p-3 rounded-full text-white shadow-md bg-amber-500">
+                                <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-800 mb-1.5" id="avgConsumption">4,426 <span class="text-base font-medium text-slate-500">kWh</span></p>
+                        <p class="text-sm font-medium text-slate-500">Overall</p>
+                    </div>
+
+                    <div class="metric-card bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-slate-500 font-semibold text-md">Active Meters</h3>
+                            <div class="p-3 rounded-full text-white shadow-md bg-emerald-500">
+                                <i data-lucide="users-2" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold text-slate-800 mb-1.5" id="activeMeters">56 <span class="text-base font-medium text-slate-500">units</span></p>
+                        <p class="text-sm font-medium text-slate-500">In selection</p>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
+                    <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Consumption Trend (All Months)</h3>
+                        <p class="text-sm text-slate-500 mb-4">Monthly electricity consumption overview</p>
+                        <div class="chart-container">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Consumption by Type</h3>
+                        <p class="text-sm text-slate-500 mb-4">Distribution by unit type</p>
+                        <div class="chart-container">
+                            <canvas id="typeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Consumers Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+                    <h3 class="text-xl font-semibold text-slate-700 mb-2">Top 7 Consumers</h3>
+                    <p class="text-sm text-slate-500 mb-4">Highest electricity consuming units</p>
+                    <div class="chart-container">
+                        <canvas id="topConsumersChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-2 sm:mb-0">Detailed Consumption Data</h3>
+                        <span class="text-sm text-slate-500" id="recordCount">56 records found</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 text-sm">
+                            <thead class="bg-slate-100">
+                                <tr>
+                                    <th class="px-4 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">SL No.</th>
+                                    <th class="px-4 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Unit Name</th>
+                                    <th class="px-4 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Category</th>
+                                    <th class="px-4 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Meter No.</th>
+                                    <th class="px-4 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Total kWh</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody" class="bg-white divide-y divide-slate-200">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 flex flex-col sm:flex-row justify-between items-center text-sm">
+                        <span class="text-slate-600 mb-2 sm:mb-0" id="paginationInfo">
+                            Showing 1-10 of 56 units
+                        </span>
+                        <div class="space-x-1.5">
+                            <button onclick="previousPage()" class="px-3.5 py-1.5 border border-slate-300 rounded-md hover:bg-slate-100 transition-colors text-slate-700">Previous</button>
+                            <button onclick="nextPage()" class="px-3.5 py-1.5 border border-slate-300 rounded-md hover:bg-slate-100 transition-colors text-slate-700">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tab Content -->
+            <div id="performance-content" class="tab-content hidden">
+                <div class="bg-white p-10 rounded-xl shadow-lg text-center">
+                    <h2 class="text-3xl font-bold text-slate-700 mb-4">Performance Analytics</h2>
+                    <p class="text-slate-500 mb-6">Advanced performance metrics and trend analysis for electricity consumption.</p>
+                    <i data-lucide="trending-up" class="w-12 h-12 mx-auto text-slate-400 mb-4"></i>
+                    <p class="text-slate-500">Performance analytics module coming soon...</p>
+                </div>
+            </div>
+
+            <!-- Analytics Tab Content -->
+            <div id="analytics-content" class="tab-content hidden">
+                <div class="bg-white p-10 rounded-xl shadow-lg text-center">
+                    <h2 class="text-3xl font-bold text-slate-700 mb-4">Advanced Analytics</h2>
+                    <p class="text-slate-500 mb-6">Deep dive into consumption patterns and predictive analytics.</p>
+                    <i data-lucide="bar-chart-2" class="w-12 h-12 mx-auto text-slate-400 mb-4"></i>
+                    <p class="text-slate-500">Analytics module coming soon...</p>
+                </div>
+            </div>
+
+            <!-- Unit Details Tab Content -->
+            <div id="details-content" class="tab-content hidden">
+                <div class="bg-white p-10 rounded-xl shadow-lg text-center">
+                    <h2 class="text-3xl font-bold text-slate-700 mb-4">Unit Details</h2>
+                    <p class="text-slate-500 mb-6">Detailed consumption analysis for individual units and meters.</p>
+                    <i data-lucide="list" class="w-12 h-12 mx-auto text-slate-400 mb-4"></i>
+                    <p class="text-slate-500">Unit details module coming soon...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- AI Analysis Modal -->
+    <div id="aiModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold primary-color">✨ AI Consumption Analysis</h3>
+                <button onclick="closeAIModal()" class="p-1 rounded-full hover:bg-slate-200">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-600"></i>
+                </button>
+            </div>
+            <div id="aiAnalysisContent" class="text-sm text-slate-700 space-y-3">
+                <div class="text-center py-8">
+                    <i data-lucide="sparkles" class="w-12 h-12 mx-auto animate-pulse primary-color mb-2"></i>
+                    <p class="text-slate-600">AI is analyzing data, please wait...</p>
+                </div>
+            </div>
+            <div class="mt-6 text-right">
+                <button onclick="closeAIModal()" class="primary-bg text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors hover:bg-opacity-90">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Sample data
+        const electricityData = {
+            monthly: [
+                {month: 'Nov', total: 45230},
+                {month: 'Dec', total: 42150},
+                {month: 'Jan', total: 38920},
+                {month: 'Feb', total: 41780},
+                {month: 'Mar', total: 39650},
+                {month: 'Apr', total: 40120}
+            ],
+            byType: [
+                {name: 'Infrastructure', value: 125430},
+                {name: 'Residential', value: 89250},
+                {name: 'Commercial', value: 33170}
+            ],
+            topConsumers: [
+                {name: 'Beachwell', consumption: 146398},
+                {name: 'Central Park', consumption: 99465},
+                {name: 'CIF Kitchen', consumption: 98655},
+                {name: 'Pumping Station 01', consumption: 14139},
+                {name: 'Lifting Station 05', consumption: 18862},
+                {name: 'Village Square', consumption: 24261},
+                {name: 'Security Building', consumption: 33289}
+            ]
+        };
+
+        // Chart configurations
+        const chartColors = {
+            primary: '#4E4456',
+            secondary: '#7E708A',
+            accent: '#6A5ACD',
+            success: '#10B981',
+            warning: '#F59E0B',
+            danger: '#EF4444'
+        };
+
+        let charts = {};
+
+        // Initialize charts
+        function initCharts() {
+            // Trend Chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            charts.trend = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: electricityData.monthly.map(d => d.month),
+                    datasets: [{
+                        label: 'Total kWh',
+                        data: electricityData.monthly.map(d => d.total),
+                        borderColor: chartColors.primary,
+                        backgroundColor: chartColors.primary + '20',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Type Chart (Doughnut)
+            const typeCtx = document.getElementById('typeChart').getContext('2d');
+            charts.type = new Chart(typeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: electricityData.byType.map(d => d.name),
+                    datasets: [{
+                        data: electricityData.byType.map(d => d.value),
+                        backgroundColor: [chartColors.primary, chartColors.accent, chartColors.success]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Top Consumers Chart
+            const consumersCtx = document.getElementById('topConsumersChart').getContext('2d');
+            charts.consumers = new Chart(consumersCtx, {
+                type: 'bar',
+                data: {
+                    labels: electricityData.topConsumers.map(d => d.name),
+                    datasets: [{
+                        label: 'Consumption (kWh)',
+                        data: electricityData.topConsumers.map(d => d.consumption),
+                        backgroundColor: chartColors.secondary
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Tab management
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('primary-bg', 'text-white');
+                tab.classList.add('text-slate-600', 'hover:bg-slate-100');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-content').classList.remove('hidden');
+            
+            // Add active class to selected tab
+            const activeTab = document.getElementById('tab-' + tabName);
+            activeTab.classList.add('primary-bg', 'text-white');
+            activeTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
+        }
+
+        // Navigation functions
+        function navigateToSection(section) {
+            switch(section) {
+                case 'electricity':
+                    // Already on electricity page
+                    break;
+                case 'water':
+                    window.location.href = 'water-dashboard.html';
+                    break;
+                case 'stp':
+                    window.location.href = 'stp-dashboard.html';
+                    break;
+                case 'contractor':
+                    window.location.href = 'contractor-dashboard.html';
+                    break;
+            }
+        }
+
+        // Filter functions
+        function resetFilters() {
+            document.getElementById('monthFilter').value = 'all';
+            document.getElementById('categoryFilter').value = 'all';
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            // This would typically update the data based on filters
+            console.log('Updating dashboard with filters...');
+        }
+
+        // Pagination functions
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable();
+            }
+        }
+
+        function nextPage() {
+            currentPage++;
+            updateTable();
+        }
+
+        function updateTable() {
+            // Update pagination info
+            document.getElementById('paginationInfo').textContent = 
+                `Showing ${((currentPage - 1) * itemsPerPage) + 1}-${Math.min(currentPage * itemsPerPage, 56)} of 56 units`;
+        }
+
+        // AI Analysis
+        function runAIAnalysis() {
+            document.getElementById('aiModal').classList.remove('hidden');
+            
+            // Simulate AI analysis
+            setTimeout(() => {
+                document.getElementById('aiAnalysisContent').innerHTML = `
+                    <h4 class="font-semibold mb-2">Key Findings:</h4>
+                    <p>• Beachwell shows exceptionally high consumption (146,398 kWh) - investigate for efficiency improvements</p>
+                    <p>• Central Park consumption varies significantly by season - consider load balancing strategies</p>
+                    <p>• Infrastructure category accounts for 50.6% of total consumption</p>
+                    <p>• Monthly trend shows 8% decrease from November to January, likely due to seasonal factors</p>
+                    <h4 class="font-semibold mt-4 mb-2">Recommendations:</h4>
+                    <p>• Implement energy-efficient pumping systems for Beachwell</p>
+                    <p>• Install smart meters for better real-time monitoring</p>
+                    <p>• Consider renewable energy integration for high-consumption units</p>
+                `;
+            }, 2000);
+        }
+
+        function closeAIModal() {
+            document.getElementById('aiModal').classList.add('hidden');
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            
+            // Populate sample data table
+            const tableBody = document.getElementById('dataTableBody');
+            const sampleData = [
+                {sl: 1, name: 'Pumping Station 01', category: 'Infrastructure', meter: 'R52330', total: 14139},
+                {sl: 2, name: 'Pumping Station 03', category: 'Infrastructure', meter: 'R52329', total: 755},
+                {sl: 3, name: 'Central Park', category: 'Public', meter: 'R54672', total: 99465},
+                {sl: 4, name: 'Beachwell', category: 'Infrastructure', meter: 'R51903', total: 146398},
+                {sl: 5, name: 'Security Building', category: 'Commercial', meter: 'R53649', total: 33289}
+            ];
+            
+            sampleData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-slate-50 transition-colors';
+                row.innerHTML = `
+                    <td class="px-4 py-3 whitespace-nowrap text-slate-500">${item.sl}</td>
+                    <td class="px-4 py-3 whitespace-nowrap font-semibold primary-color">${item.name}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-slate-600">${item.category}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-slate-600">${item.meter}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-slate-800 font-bold text-right">${item.total.toLocaleString()}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Re-initialize icons after dynamic content
+            lucide.createIcons();
+        });
+    </script>
+
+</body>
+</html>
