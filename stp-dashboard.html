@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STP Plant Dashboard - Muscat Bay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f7;
+        }
+        .header-bg {
+            background-color: #4E4456;
+        }
+        .primary-text {
+            color: #4E4456;
+        }
+        .logo-mb {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7A94 0%, #A596AD 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="header-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="logo-mb">MB</div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold">STP Plant Dashboard</h1>
+                    <p class="text-sm text-gray-200">Sewage treatment plant operations monitoring</p>
+                </div>
+            </div>
+            <a href="index.html" class="bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-lg transition-colors">
+                ← Back to Main Dashboard
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 py-8">
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-emerald-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Daily Inflow</p>
+                        <p class="text-2xl font-bold text-emerald-600">1,850 m³</p>
+                        <p class="text-xs text-green-600">↑ 5% from yesterday</p>
+                    </div>
+                    <div class="text-emerald-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9zm2.316-3.076A1.5 1.5 0 0010 4.5a1.5 1.5 0 00-1.316 1.424A1.5 1.5 0 0010 7.5a1.5 1.5 0 001.316-1.576zM8.684 14.076A1.5 1.5 0 0010 15.5a1.5 1.5 0 001.316-1.424A1.5 1.5 0 0010 12.5a1.5 1.5 0 00-1.316 1.576z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Treatment Efficiency</p>
+                        <p class="text-2xl font-bold text-blue-600">97.8%</p>
+                        <p class="text-xs text-green-600">Above target (95%)</p>
+                    </div>
+                    <div class="text-blue-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">BOD Removal</p>
+                        <p class="text-2xl font-bold text-purple-600">98.5%</p>
+                        <p class="text-xs text-green-600">Excellent performance</p>
+                    </div>
+                    <div class="text-purple-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Alarm Status</p>
+                        <p class="text-2xl font-bold text-yellow-600">1</p>
+                        <p class="text-xs text-yellow-600">Minor maintenance</p>
+                    </div>
+                    <div class="text-yellow-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Treatment Stages & Water Quality -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Treatment Stages Status</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                        <span class="font-medium">Primary Treatment</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Operational</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                        <span class="font-medium">Secondary Treatment</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Optimal</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                        <span class="font-medium">Tertiary Treatment</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Active</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <span class="font-medium">Disinfection Unit</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Maintenance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Water Quality Parameters</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">pH Level</span>
+                        <span class="text-green-600 font-bold">7.2</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">BOD (mg/L)</span>
+                        <span class="text-green-600 font-bold">8.5</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">COD (mg/L)</span>
+                        <span class="text-green-600 font-bold">25.3</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">TSS (mg/L)</span>
+                        <span class="text-green-600 font-bold">12.1</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Turbidity (NTU)</span>
+                        <span class="text-green-600 font-bold">2.8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipment Status -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold primary-text mb-4">Equipment Status</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Aeration Blowers</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Running</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Flow Rate: 850 m³/hr</p>
+                    <p class="text-sm text-gray-600">Pressure: 2.3 bar</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Primary Clarifier</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Normal</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Sludge Level: 45%</p>
+                    <p class="text-sm text-gray-600">Overflow Rate: Normal</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Secondary Clarifier</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Optimal</span>
+                    </div>
+                    <p class="text-sm text-gray-600">MLSS: 3,200 mg/L</p>
+                    <p class="text-sm text-gray-600">Return Rate: 85%</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Sludge Pumps</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Active</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Pump 1: 75% speed</p>
+                    <p class="text-sm text-gray-600">Pump 2: 82% speed</p>
+                </div>
+                
+                <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">UV Disinfection</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">Maintenance</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Lamp replacement due</p>
+                    <p class="text-sm text-gray-600">Scheduled: Tomorrow 8 AM</p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Control System</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Online</span>
+                    </div>
+                    <p class="text-sm text-gray-600">SCADA: Connected</p>
+                    <p class="text-sm text-gray-600">Sensors: 24/24 active</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flow Distribution & Recent Activities -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Flow Distribution</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Residential Input</span>
+                        <span class="text-emerald-600 font-bold">1,120 m³</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Commercial Input</span>
+                        <span class="text-emerald-600 font-bold">520 m³</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Industrial Input</span>
+                        <span class="text-emerald-600 font-bold">210 m³</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                        <span class="font-medium">Treated Effluent</span>
+                        <span class="text-blue-600 font-bold">1,810 m³</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Reclaimed Water</span>
+                        <span class="text-purple-600 font-bold">1,520 m³</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Recent Activities</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                        <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                        <span class="text-sm">UV lamp replacement scheduled for tomorrow 8:00 AM</span>
+                        <span class="ml-auto text-xs text-gray-500">30 min ago</span>
+                    </div>
+                    <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                        <span class="text-sm">Daily water quality test completed - All parameters normal</span>
+                        <span class="ml-auto text-xs text-gray-500">2 hours ago</span>
+                    </div>
+                    <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                        <span class="text-sm">Sludge dewatering operation completed successfully</span>
+                        <span class="ml-auto text-xs text-gray-500">4 hours ago</span>
+                    </div>
+                    <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                        <span class="text-sm">Environmental compliance report submitted to authorities</span>
+                        <span class="ml-auto text-xs text-gray-500">1 day ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="header-bg text-white text-center py-4 mt-8">
+        <p class="text-sm">&copy; 2025 Muscat Bay Integrated Systems. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
