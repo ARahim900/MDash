@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contractor Tracker Dashboard - Muscat Bay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f7;
+        }
+        .header-bg {
+            background-color: #4E4456;
+        }
+        .primary-text {
+            color: #4E4456;
+        }
+        .logo-mb {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7A94 0%, #A596AD 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="header-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="logo-mb">MB</div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold">Contractor Tracker Dashboard</h1>
+                    <p class="text-sm text-gray-200">Project management and contractor performance monitoring</p>
+                </div>
+            </div>
+            <a href="index.html" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-colors">
+                ← Back to Main Dashboard
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 py-8">
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-indigo-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Projects</p>
+                        <p class="text-2xl font-bold text-indigo-600">12</p>
+                        <p class="text-xs text-blue-600">8 on schedule, 4 delayed</p>
+                    </div>
+                    <div class="text-indigo-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Contractors</p>
+                        <p class="text-2xl font-bold text-green-600">8</p>
+                        <p class="text-xs text-green-600">All certified & active</p>
+                    </div>
+                    <div class="text-green-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-amber-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Budget Utilization</p>
+                        <p class="text-2xl font-bold text-amber-600">68%</p>
+                        <p class="text-xs text-amber-600">$2.4M of $3.5M</p>
+                    </div>
+                    <div class="text-amber-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card bg-white rounded-xl shadow-md p-6 border-l-4 border-red-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Overdue Tasks</p>
+                        <p class="text-2xl font-bold text-red-600">3</p>
+                        <p class="text-xs text-red-600">Requires attention</p>
+                    </div>
+                    <div class="text-red-500">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Projects & Contractor Performance -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Active Projects</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Marina Dock Renovation</h4>
+                                <p class="text-sm text-gray-600">Contractor: Al Nahda Construction</p>
+                            </div>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">On Track</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar bg-green-500 h-2 rounded-full" style="width: 75%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Progress: 75%</span>
+                            <span>Due: June 15, 2025</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Water Pipeline Installation</h4>
+                                <p class="text-sm text-gray-600">Contractor: Gulf Infrastructure Ltd</p>
+                            </div>
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">Delayed</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar bg-yellow-500 h-2 rounded-full" style="width: 45%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Progress: 45%</span>
+                            <span>Due: May 30, 2025</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Electrical Grid Upgrade</h4>
+                                <p class="text-sm text-gray-600">Contractor: Power Solutions LLC</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Starting Soon</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar bg-blue-500 h-2 rounded-full" style="width: 10%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Progress: 10%</span>
+                            <span>Due: August 20, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Contractor Performance</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                        <div>
+                            <span class="font-medium">Al Nahda Construction</span>
+                            <p class="text-sm text-gray-600">3 active projects</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-green-600 font-bold">95%</span>
+                            <p class="text-xs text-gray-500">Performance Score</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div>
+                            <span class="font-medium">Gulf Infrastructure Ltd</span>
+                            <p class="text-sm text-gray-600">2 active projects</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-blue-600 font-bold">88%</span>
+                            <p class="text-xs text-gray-500">Performance Score</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <div>
+                            <span class="font-medium">Power Solutions LLC</span>
+                            <p class="text-sm text-gray-600">1 active project</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-purple-600 font-bold">92%</span>
+                            <p class="text-xs text-gray-500">Performance Score</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div>
+                            <span class="font-medium">Maintenance Pro Services</span>
+                            <p class="text-sm text-gray-600">2 active projects</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-yellow-600 font-bold">78%</span>
+                            <p class="text-xs text-gray-500">Performance Score</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resource Allocation & Compliance Status -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Resource Allocation</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Total Workforce</span>
+                        <span class="text-indigo-600 font-bold">157 workers</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Heavy Equipment</span>
+                        <span class="text-indigo-600 font-bold">23 units</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Material Inventory</span>
+                        <span class="text-green-600 font-bold">85% stocked</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-medium">Safety Equipment</span>
+                        <span class="text-green-600 font-bold">100% compliant</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold primary-text mb-4">Compliance Status</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <span class="font-medium">Safety Certifications</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Valid</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <span class="font-medium">Insurance Coverage</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Active</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <span class="font-medium">Environmental Permits</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Renewal Due</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <span class="font-medium">Quality Standards</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">ISO 9001</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-xl font-bold primary-text mb-4">Recent Activities</h3>
+            <div class="space-y-3">
+                <div class="flex items-center p-3 bg-red-50 rounded-lg">
+                    <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Water Pipeline Installation project is 2 days behind schedule</span>
+                    <span class="ml-auto text-xs text-gray-500">1 hour ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Marina Dock Renovation milestone completed - 75% progress achieved</span>
+                    <span class="ml-auto text-xs text-gray-500">3 hours ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Power Solutions LLC submitted updated project timeline</span>
+                    <span class="ml-auto text-xs text-gray-500">6 hours ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                    <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Environmental permit renewal notification sent to contractors</span>
+                    <span class="ml-auto text-xs text-gray-500">1 day ago</span>
+                </div>
+                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-sm">Monthly safety inspection completed - All sites passed</span>
+                    <span class="ml-auto text-xs text-gray-500">2 days ago</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="header-bg text-white text-center py-4 mt-8">
+        <p class="text-sm">&copy; 2025 Muscat Bay Integrated Systems. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
