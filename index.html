@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muscat Bay Systems Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f7; /* Light grey background */
+        }
+        .header-bg {
+            background-color: #4E4456; /* Main primary color */
+        }
+        .dromedary-bg {
+            background-color: #A0D2DB; /* Dromedary/secondary color from logo */
+        }
+        .dromedary-text {
+            color: #A0D2DB;
+        }
+        .primary-text {
+            color: #4E4456;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15), 0 6px 6px rgba(0,0,0,0.10);
+        }
+        .nav-card {
+            border-left-width: 4px;
+        }
+        .nav-card-water {
+            border-left-color: #3B82F6; /* Blue for Water */
+        }
+        .nav-card-electricity {
+            border-left-color: #F59E0B; /* Amber for Electricity */
+        }
+        .nav-card-stp {
+            border-left-color: #10B981; /* Emerald for STP */
+        }
+        .nav-card-contractor {
+            border-left-color: #6366F1; /* Indigo for Contractor */
+        }
+
+        /* Custom logo style from water dashboard */
+        .logo-mb {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7A94 0%, #A596AD 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="header-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-8 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="logo-mb">MB</div>
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold">Muscat Bay</h1>
+                    <p class="text-lg text-gray-200">Integrated Systems Dashboard</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 py-12">
+        <h2 class="text-3xl font-semibold primary-text mb-10 text-center">Welcome to the Muscat Bay Operations Hub</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <a href="water-dashboard.html" class="nav-card nav-card-water bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 card-hover flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.743.518 1 1 0 00-.656 1.906A2.535 2.535 0 0110 9.5V10a1 1 0 002 0V8.5a2.5 2.5 0 011.25-.79l.004-.002a1 1 0 10-1.008-1.72L12.5 6H11V5zM10 12a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <h3 class="text-xl font-semibold primary-text">Water Management</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Monitor water supply, distribution, consumption, and analyze water loss across various zones.</p>
+                </div>
+                <div class="bg-gray-50 px-6 py-4">
+                    <span class="text-blue-600 font-medium hover:text-blue-700 transition-colors">Access Water Dashboard &rarr;</span>
+                </div>
+            </a>
+
+            <a href="electricity-dashboard.html" class="nav-card nav-card-electricity bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 card-hover flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-amber-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M11 3a1 1 0 100 2h1V3h-1zM4 8a1 1 0 011-1h1v2H5a1 1 0 01-1-1zM15 8a1 1 0 00-1-1h-1v2h1a1 1 0 001-1zM8 3a1 1 0 100 2h1V3H8zM7 11h1v2H7v-2zM12 11h1v2h-1v-2zM5 11a1 1 0 011-1h1v2H6a1 1 0 01-1-1zM13 11a1 1 0 011-1h1v2h-1a1 1 0 01-1-1zM7.05 14.93A.997.997 0 008 16h4a.997.997 0 00.95-1.07l-.25-1.93H7.3l-.25 1.93zM10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1z" />
+                        </svg>
+                        <h3 class="text-xl font-semibold primary-text">Electricity System</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Track power generation, distribution networks, consumption patterns, and system efficiency.</p>
+                </div>
+                <div class="bg-gray-50 px-6 py-4">
+                    <span class="text-amber-600 font-medium hover:text-amber-700 transition-colors">View Electricity Data &rarr;</span>
+                </div>
+            </a>
+
+            <a href="stp-dashboard.html" class="nav-card nav-card-stp bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 card-hover flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="flex items-center mb-4">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9zm2.316-3.076A1.5 1.5 0 0010 4.5a1.5 1.5 0 00-1.316 1.424A1.5 1.5 0 0010 7.5a1.5 1.5 0 001.316-1.576zM8.684 14.076A1.5 1.5 0 0010 15.5a1.5 1.5 0 001.316-1.424A1.5 1.5 0 0010 12.5a1.5 1.5 0 00-1.316 1.576z" clip-rule="evenodd" />
+                        </svg>
+                        <h3 class="text-xl font-semibold primary-text">STP Plant</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Oversee sewage treatment plant operations, effluent quality, and environmental compliance.</p>
+                </div>
+                 <div class="bg-gray-50 px-6 py-4">
+                    <span class="text-emerald-600 font-medium hover:text-emerald-700 transition-colors">Monitor STP Plant &rarr;</span>
+                </div>
+            </a>
+
+            <a href="contractor-dashboard.html" class="nav-card nav-card-contractor bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 card-hover flex flex-col">
+                <div class="p-6 flex-grow">
+                     <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                        </svg>
+                        <h3 class="text-xl font-semibold primary-text">Contractor Tracker</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Manage contractor activities, project timelines, performance metrics, and resource allocation.</p>
+                </div>
+                <div class="bg-gray-50 px-6 py-4">
+                    <span class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors">Track Contractors &rarr;</span>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="header-bg text-white text-center py-6 mt-12">
+        <p>&copy; <span id="currentYear"></span> Muscat Bay Integrated Systems. All rights reserved.</p>
+        <p class="text-sm text-gray-300">Powered by MB Technology Division</p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
